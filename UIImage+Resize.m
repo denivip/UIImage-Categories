@@ -54,7 +54,18 @@
     
     if ( [[[UIDevice currentDevice] systemVersion] floatValue] >= 5.0 ) 
     {
-        drawTransposed = NO;  
+        drawTransposed = NO;
+        switch ( self.imageOrientation )
+        {
+            case UIImageOrientationLeft:
+            case UIImageOrientationLeftMirrored:
+            case UIImageOrientationRight:
+            case UIImageOrientationRightMirrored:
+                  newSize = CGSizeMake(newSize.height, newSize.width);
+                break;
+            default:
+                ;
+        }
     } 
     else 
     {    
