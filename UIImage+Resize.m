@@ -91,6 +91,22 @@
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality {
+    // Make bounds orientation independent. Assume width and height of bounds mean normal/up/output orientation bounds.
+    
+    switch ([self imageOrientation]) {
+        case UIImageOrientationRight:
+        case UIImageOrientationLeft:
+        case UIImageOrientationRightMirrored:
+        case UIImageOrientationLeftMirrored:
+            bounds = CGSizeMake(bounds.height, bounds.width);
+            break;
+            
+        default:
+            break;
+    }
+    
+    //
+    
     CGFloat horizontalRatio = bounds.width / self.size.width;
     CGFloat verticalRatio = bounds.height / self.size.height;
     CGFloat ratio;
